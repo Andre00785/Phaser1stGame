@@ -6,7 +6,7 @@ var config = { // туто ми налаштовуємо сценку
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: { y: 300 },
+                gravity: { y: 200 },
                 debug: false
             }
         },
@@ -77,7 +77,7 @@ this.anims.create({
     frameRate: 10,
     repeat: -1
 });
-player.body.setGravityY(300)
+player.body.setGravityY(50)
 this.physics.add.collider(player, platforms);
 stars = this.physics.add.group({
     key: 'star',

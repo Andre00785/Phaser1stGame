@@ -32,6 +32,7 @@ function preload ()
 
 function create ()
 {
+
     this.add.image(400, 300, 'sky');
 
     platforms = this.physics.add.staticGroup();
@@ -42,8 +43,10 @@ function create ()
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
     platforms = this.physics.add.staticGroup();
-    
+
     player = this.physics.add.sprite(100, 450, 'dude');
+    this.physics.add.collider(player, platforms);
+    player.body.setGravityY(300)
 
 player.setBounce(0.2);
 player.setCollideWorldBounds(true);
@@ -65,11 +68,14 @@ this.anims.create({
     key: 'right',
     frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
     frameRate: 10,
-    repeat: -1
+    repeat: -1,
+
 });
+
     
 }
 
 function update ()
 {
+    
 }

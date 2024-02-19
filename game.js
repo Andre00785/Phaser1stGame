@@ -26,7 +26,7 @@ function preload ()// тут ми завантажуємо потрібні ма
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude', 
         'assets/dude.png',
-        { frameWidth: 32, frameHeight: 48 }  
+        { frameWidth: 129, frameHeight: 129 }  
         );
     }
     
@@ -55,25 +55,25 @@ function collectStar (player, star)
         platforms.create(750, 220, 'ground');
         player = this.physics.add.sprite(100, 450, 'dude');
 
-player.setBounce(0.2);
+player.setBounce(0.1);
 player.setCollideWorldBounds(true);
 
 this.anims.create({
     key: 'left',
-    frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+    frames: [{key:'dude',  frame: 12 }],
     frameRate: 10,
     repeat: -1
 });
 
 this.anims.create({
     key: 'turn',
-    frames: [ { key: 'dude', frame: 4 } ],
+    frames: [ { key: 'dude', frame: 11 } ],
     frameRate: 20
 });
 
 this.anims.create({
     key: 'right',
-    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+    frames: this.anims.generateFrameNumbers('dude', { start: 1, end: 10 }),
     frameRate: 10,
     repeat: -1
 });

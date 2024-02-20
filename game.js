@@ -1,7 +1,7 @@
 var config = { // туто ми налаштовуємо сценку
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 1920,
+    height: 1080,
     scene: {
         physics: {
             default: 'arcade',
@@ -48,17 +48,19 @@ function collectStar (player, star)
 }
 
         cursors = this.input.keyboard.createCursorKeys();
-        this.add.image(400, 300, 'sky');
+        this.add.image(960, 540, 'sky');
     
         platforms = this.physics.add.staticGroup();
     
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
     
         platforms.create(400, 380, 'ground');
         platforms.create(130, 150, 'ground');
         platforms.create(600, 350, 'ground');
-        player = this.physics.add.sprite(100, 450, 'dude');
 
+        player = this.physics.add.sprite(100, 450, 'dude');
+player.setScale(0.8)
 player.setBounce(0.1);
 player.setCollideWorldBounds(true);
 

@@ -50,9 +50,9 @@ function collectStar (player, star)
     
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     
-        platforms.create(500, 400, 'ground');
+        platforms.create(400, 380, 'ground');
         platforms.create(130, 150, 'ground');
-        platforms.create(700, 340, 'ground');
+        platforms.create(600, 350, 'ground');
         player = this.physics.add.sprite(100, 450, 'dude');
 
 player.setBounce(0.1);

@@ -71,7 +71,9 @@ this.anims.create({
 
 this.anims.create({
     key: 'turn',
-    frames: [ { key: 'dude', frame: 11 } ],
+    frames: this.anims.generateFrameNumbers("dude", {
+        frames: [11, 10, 11, 12, 11],
+      }),
     frameRate: 5,
     repeat: -1
 });

@@ -28,6 +28,10 @@ function preload ()// тут ми завантажуємо потрібні ма
         'assets/dude.png',
         { frameWidth: 129, frameHeight: 129 }  
         );
+        this.load.spritesheet('dude5', 
+        'assets/dude5.png',
+        { frameWidth: 129, frameHeight: 129 }  
+        );
     }
     
     function create ()
@@ -60,7 +64,7 @@ player.setCollideWorldBounds(true);
 
 this.anims.create({
     key: 'left',
-    frames: [{key:'dude',  frame: 12 }],
+    frames: this.anims.generateFrameNumbers('dude5', { start: 9, end: 1 }),
     frameRate: 10,
     repeat: -1
 });
@@ -68,7 +72,8 @@ this.anims.create({
 this.anims.create({
     key: 'turn',
     frames: [ { key: 'dude', frame: 11 } ],
-    frameRate: 20
+    frameRate: 5,
+    repeat: -1
 });
 
 this.anims.create({

@@ -25,6 +25,7 @@ function preload ()// тут ми завантажуємо потрібні ма
     this.load.image('star', 'assets/star.png');
     this.load.image('soul', 'assets/soul.png');
     this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('stair', 'assets/stairs.png');
     this.load.spritesheet('dude', 
         'assets/dude.png',
         { frameWidth: 129, frameHeight: 129 }  
@@ -58,10 +59,13 @@ function collectStar (player, star)
         platforms.create(1750, 400, 'ground').setScale(1).refreshBody();
         platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
         platforms.create(1750, 200, 'ground').setScale(0.2).refreshBody();
+        platforms.create(960, 1070, 'ground').setScale(5).refreshBody();
     
         platforms.create(400, 380, 'ground');
         platforms.create(130, 150, 'ground');
         platforms.create(600, 350, 'ground');
+
+
 
         player = this.physics.add.sprite(100, 450, 'dude');
 player.setScale(0.8)

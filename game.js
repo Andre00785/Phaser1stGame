@@ -94,14 +94,9 @@ player.body.setGravityY(50)
 this.physics.add.collider(player, platforms);
 
 stars = this.physics.add.group({
-    key: 'star',
-    repeat: 30,
-    setXY: { x: 12, y: 0, stepX: 60 }
-});
-stars = this.physics.add.group({
     key: 'soul',
-    repeat: 30,
-    setXY: { x: 12, y: 0, stepX: 80 }
+    repeat: 15,
+    setXY: { x: 0, y: 0, stepX: 120 }
 });
 
 stars.children.iterate(function (child) {
@@ -109,9 +104,10 @@ stars.children.iterate(function (child) {
     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
 });
-this.physics.add.collider(stars, souls, platforms);
+
+this.physics.add.collider(stars, platforms);
 this.physics.add.overlap(player, stars, collectStar, null, this);
-function collectStar (player, star, soul)
+function collectStar (player, star)
 {
     star.disableBody(true, true);
 }

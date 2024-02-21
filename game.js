@@ -23,6 +23,7 @@ function preload ()// тут ми завантажуємо потрібні ма
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
+    this.load.image('soul', 'assets/soul.png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude', 
         'assets/dude.png',
@@ -54,6 +55,9 @@ function collectStar (player, star)
     
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
         platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
+        platforms.create(1750, 400, 'ground').setScale(1).refreshBody();
+        platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
+        platforms.create(1750, 200, 'ground').setScale(0.2).refreshBody();
     
         platforms.create(400, 380, 'ground');
         platforms.create(130, 150, 'ground');
@@ -88,10 +92,16 @@ this.anims.create({
 });
 player.body.setGravityY(50)
 this.physics.add.collider(player, platforms);
+
 stars = this.physics.add.group({
     key: 'star',
-    repeat: 11,
-    setXY: { x: 12, y: 0, stepX: 70 }
+    repeat: 30,
+    setXY: { x: 12, y: 0, stepX: 60 }
+});
+stars = this.physics.add.group({
+    key: 'soul',
+    repeat: 30,
+    setXY: { x: 960, y: 0, stepX: 80 }
 });
 
 stars.children.iterate(function (child) {

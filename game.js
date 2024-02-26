@@ -3,6 +3,7 @@ var config = { // туто ми налаштовуємо сценку
     width: 1920,
     height: 1080,
     scene: {
+        parent:game,
         physics: {
             default: 'arcade',
             arcade: {
@@ -56,7 +57,7 @@ function collectStar (player, star)
     
         platforms.create(400, 568, 'ground').setScale(2).refreshBody();
         platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
-        platforms.create(1750, 400, 'ground').setScale(1).refreshBody();
+        platforms.create(1750, 400, 'ground');
         platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
         platforms.create(1750, 200, 'ground').setScale(0.2).refreshBody();
         platforms.create(960, 1070, 'ground').setScale(5).refreshBody();

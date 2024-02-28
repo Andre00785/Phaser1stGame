@@ -39,6 +39,9 @@ function preload ()// тут ми завантажуємо потрібні ма
     
     function create ()
     {
+
+
+        
         var score = 0;
 var scoreText;
 scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -72,6 +75,12 @@ function collectStar (player, star)
 player.setScale(0.8)
 player.setBounce(0.1);
 player.setCollideWorldBounds(true);
+
+this.cameras.main.setBouns(0, 0, worldWidth, window.innerHeight);
+        this.physics.world.setBounds(0, 0, worldWidth, window.innerHeight);
+
+        this.cameras.main.startFollow(player)
+
 
 this.anims.create({
     key: 'left',
@@ -118,6 +127,7 @@ function collectStar (player, star)
 }
 
 
+
     }
         
     function update ()
@@ -146,4 +156,5 @@ if (cursors.up.isDown && player.body.touching.down)
 {
     player.setVelocityY(-330);
 }
+
 }

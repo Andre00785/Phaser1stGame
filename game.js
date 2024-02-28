@@ -29,7 +29,7 @@ function preload ()// тут ми завантажуємо потрібні ма
     this.load.image('stair', 'assets/stairs.png');
     this.load.spritesheet('dude', 
         'assets/dude.png',
-        { frameWidth: 129, frameHeight: 129 }  
+        { frameWidth: 129, frameHeight: 129 }
         );
         this.load.spritesheet('dude5', 
         'assets/dude5.png',

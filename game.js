@@ -60,7 +60,7 @@ function collectStar (player, star)
     
         platforms = this.physics.add.staticGroup();
     
-        // platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        // platforms.create(400, 568, 'ground').setScale(2).refreshBody();    //це не нада взагалі
         // platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
         // platforms.create(1750, 400, 'ground');
         // platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
@@ -108,7 +108,7 @@ this.anims.create({
 player.body.setGravityY(50)   //задаємо персонажу гравітацію
 this.physics.add.collider(player, platforms);  //створюємо йому колізію
 
-stars = this.physics.add.group({   
+stars = this.physics.add.group({   //додаємо зірочки
     key: 'soul',
     repeat: 15,
     setXY: { x: 0, y: 0, stepX: 120 }
@@ -120,7 +120,7 @@ stars.children.iterate(function (child) {
 
 });
 
-this.physics.add.collider(stars, platforms);
+this.physics.add.collider(stars, platforms); // задаємо колізію
 this.physics.add.overlap(player, stars, collectStar, null, this);
 function collectStar (player, star)
 {
@@ -133,11 +133,11 @@ function collectStar (player, star)
         
     function update ()
 {
-    this.cameras.main.setBounds(0, 0, worldWidth, window.innerHeight);
+    this.cameras.main.setBounds(0, 0, worldWidth, window.innerHeight);  //робимо камеру щоб вона стежила за гравцем
     this.physics.world.setBounds(0, 0, worldWidth, window.innerHeight);
     this.cameras.main.startFollow(player);
       
-    if (cursors.left.isDown)
+    if (cursors.left.isDown)  //робимо керуваня гравцем
 {
     player.setVelocityX(-160);
 

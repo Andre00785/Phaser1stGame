@@ -67,19 +67,18 @@ function collectStar (player, star)
     
         platforms.create(400, 380, 'ground');
         platforms.create(130, 150, 'ground');
-        platforms.create(600, 350, 'ground');
+        platforms.create(600, 350, 'ground'); 
 
-
+        for(var x = 0; x <worldWidth; x = x + 450) {
+            console.log(x)
+            platforms.create(x, 1000, 'ground').setOrigin(0, 0).refreshBody();
+        }
 
         player = this.physics.add.sprite(100, 450, 'dude');
-player.setScale(0.8)
-player.setBounce(0.1);
-player.setCollideWorldBounds(true);
+         player.setScale(0.8)
+         player.setBounce(0.1);
+         player.setCollideWorldBounds(true);
 
-this.cameras.main.setBouns(0, 0, worldWidth, window.innerHeight);
-        this.physics.world.setBounds(0, 0, worldWidth, window.innerHeight);
-
-        this.cameras.main.startFollow(player)
 
 
 this.anims.create({

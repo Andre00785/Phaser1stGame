@@ -73,7 +73,7 @@ function collectStar (player, star)
 
 for (var x = 0; x < worldWidth; x = x + 450) {
     console.log(x)
-    platforms.create(x, 1000, 'ground').setOrigin(0, 0).refreshBody().setScale(1,5);
+    platforms.create(x, 1000, 'ground').setOrigin(0, 0).refreshBody().setScale(1);
 }
 
         player = this.physics.add.sprite(100, 450, 'dude');
@@ -133,6 +133,8 @@ function collectStar (player, star)
         
     function update ()
 {
+    this.cameras.main.setBounds(0, 0, worldWidth, window.innerHeight);
+    this.physics.world.setBounds(0, 0, worldWidth, window.innerHeight);
     this.cameras.main.startFollow(player);
       
     if (cursors.left.isDown)

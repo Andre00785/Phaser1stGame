@@ -4,10 +4,10 @@ var config = { // туто ми налаштовуємо сценку
     height: 1080,
     scene: {
         parent:game,
-        physics: {
+        physics: {  //задаємо стиль фізики гри
             default: 'arcade',
             arcade: {
-                gravity: { y: 200 },
+                gravity: { y: 200 },  //додаємо гравітацію
                 debug: false
             }
         },
@@ -17,7 +17,7 @@ var config = { // туто ми налаштовуємо сценку
     }
 };
 
-var game = new Phaser.Game(config);
+var game = new Phaser.Game(config);  //тут ми дещо теж додаємо :)
 var worldWidth = 9600
 var console = console
 
@@ -46,7 +46,7 @@ function preload ()// тут ми завантажуємо потрібні ма
         
         var score = 0;
 var scoreText;
-scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });  //це поки що не надо
 function collectStar (player, star)
 {
     star.disableBody(true, true);
@@ -56,7 +56,7 @@ function collectStar (player, star)
 }
 
         cursors = this.input.keyboard.createCursorKeys();
-        this.add.image(960, 540, 'sky');
+        this.add.image(960, 540, 'sky');   //тут ми можна сказати доаємо на сцену наш фон
     
         platforms = this.physics.add.staticGroup();
     
@@ -71,19 +71,19 @@ function collectStar (player, star)
         // platforms.create(130, 150, 'ground');
         // platforms.create(600, 350, 'ground'); 
 
-for (var x = 0; x < worldWidth; x = x + 450) {
+for (var x = 0; x < worldWidth; x = x + 400) {
     console.log(x)
-    platforms.create(x, 1000, 'ground').setOrigin(0, 0).refreshBody().setScale(1);
+    platforms.create(x, 1040, 'ground').setOrigin(0, 0).refreshBody().setScale(1);  //тут ми додаємо платформи які спауняться випадковим образом
 }
 
-        player = this.physics.add.sprite(100, 450, 'dude');
+        player = this.physics.add.sprite(100, 450, 'dude');  //додаємо персонажа і задаємо його розміри і ось 
          player.setScale(0.8)
          player.setBounce(0.1);
          player.setCollideWorldBounds(true);
 
 
 
-this.anims.create({
+this.anims.create({   //створюємо анімації для персонажа
     key: 'left',
     frames: this.anims.generateFrameNumbers('dude5', { start: 9, end: 1 }),
     frameRate: 10,
@@ -105,10 +105,10 @@ this.anims.create({
     frameRate: 10,
     repeat: -1
 });
-player.body.setGravityY(50)
-this.physics.add.collider(player, platforms);
+player.body.setGravityY(50)   //задаємо персонажу гравітацію
+this.physics.add.collider(player, platforms);  //створюємо йому колізію
 
-stars = this.physics.add.group({
+stars = this.physics.add.group({   
     key: 'soul',
     repeat: 15,
     setXY: { x: 0, y: 0, stepX: 120 }

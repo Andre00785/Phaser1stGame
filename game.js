@@ -18,12 +18,14 @@ var config = { // туто ми налаштовуємо сценку
 };
 
 var game = new Phaser.Game(config);
+var worldWidth = 9600
+var console = console
+
 
 function preload ()// тут ми завантажуємо потрібні матеріали для гри
 {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
-    this.load.image('star', 'assets/star.png');
     this.load.image('soul', 'assets/soul.png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.image('stair', 'assets/stairs.png');
@@ -58,21 +60,21 @@ function collectStar (player, star)
     
         platforms = this.physics.add.staticGroup();
     
-        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-        platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
-        platforms.create(1750, 400, 'ground');
-        platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
-        platforms.create(1750, 200, 'ground').setScale(0.2).refreshBody();
-        platforms.create(960, 1070, 'ground').setScale(5).refreshBody();
+        // platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+        // platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
+        // platforms.create(1750, 400, 'ground');
+        // platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
+        // platforms.create(1750, 200, 'ground').setScale(0.2).refreshBody();
+        // platforms.create(960, 1070, 'ground').setScale(5).refreshBody();
     
-        platforms.create(400, 380, 'ground');
-        platforms.create(130, 150, 'ground');
-        platforms.create(600, 350, 'ground'); 
+        // platforms.create(400, 380, 'ground');
+        // platforms.create(130, 150, 'ground');
+        // platforms.create(600, 350, 'ground'); 
 
-        for(var x = 0; x <worldWidth; x = x + 450) {
-            console.log(x)
-            platforms.create(x, 1000, 'ground').setOrigin(0, 0).refreshBody();
-        }
+for (var x = 0; x < worldWidth; x = x + 450) {
+    console.log(x)
+    platforms.create(x, 1000, 'ground').setOrigin(0, 0).refreshBody().setScale(1,5);
+}
 
         player = this.physics.add.sprite(100, 450, 'dude');
          player.setScale(0.8)
@@ -131,6 +133,7 @@ function collectStar (player, star)
         
     function update ()
 {
+    this.cameras.main.startFollow(player);
       
     if (cursors.left.isDown)
 {

@@ -20,6 +20,8 @@ var config = { // туто ми налаштовуємо сценку
 var game = new Phaser.Game(config);  //тут ми дещо теж додаємо :)
 var worldWidth = 9600
 var console = console
+var plants;
+var platform;
 
 
 
@@ -27,6 +29,7 @@ function preload ()// тут ми завантажуємо потрібні ма
 {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
+    this.load.image('plant', 'assets/plant.png');
     this.load.image('soul', 'assets/soul.png');
     this.load.image('bomb', 'assets/bomb.png');
     this.load.image('stair', 'assets/stairs.png');
@@ -126,15 +129,35 @@ function collectStar (player, star)
 {
     star.disableBody(true, true);
 }
+  // Створення групи рослин
+  plants = this.physics.add.group({
+    key: 'plant',
+    repeat: 5,
+    setXY: { x: 12, y: 0, stepX: 140 }
+});
 
+// Відключення гравітації для рослин
+plants.children.iterate(function (child) {
+    child.setGravityY(-200);
+});
 
-
+// Оновлення розміщення рослин
+updatePlantPositions();
     }
         
     function update ()
 {
    
-
+    // function updatePlantPositions() {
+    //     plants.children.iterate(function (child));
+    //     {
+    //         // Перевірка колізій рослини з платформами
+    //         var overlaps = false;
+    //         platforms.children.iterate(function (platform) {
+    //             if (Phaser.Geom.Intersects.RectangleToRectangle(child.getBounds(), platform.getBounds())) {
+    //                 overlaps = true;
+    //             }
+    //         });
 
 
     this.cameras.main.setBounds(0, 0, worldWidth, window.innerHeight);  //робимо камеру щоб вона стежила за гравцем

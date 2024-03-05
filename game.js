@@ -22,6 +22,7 @@ var worldWidth = 9600
 var console = console
 
 
+
 function preload ()// тут ми завантажуємо потрібні матеріали для гри
 {
     this.load.image('sky', 'assets/sky.png');
@@ -41,7 +42,6 @@ function preload ()// тут ми завантажуємо потрібні ма
     
     function create ()
     {
-
 
         
         var score = 0;
@@ -133,6 +133,10 @@ function collectStar (player, star)
         
     function update ()
 {
+   
+
+
+
     this.cameras.main.setBounds(0, 0, worldWidth, window.innerHeight);  //робимо камеру щоб вона стежила за гравцем
     this.physics.world.setBounds(0, 0, worldWidth, window.innerHeight);
     this.cameras.main.startFollow(player);

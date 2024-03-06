@@ -129,20 +129,18 @@ function collectStar (player, star)
 {
     star.disableBody(true, true);
 }
-  // Створення групи рослин
-  plants = this.physics.add.group({
-    key: 'plant',
-    repeat: 5,
-    setXY: { x: 12, y: 0, stepX: 140 }
-});
+//   // Створення групи рослин
+//   plants = this.physics.add.group({
+//     key: 'plant',
+//     repeat: 5,
+//     setXY: { x: 12, y: 0, stepX: 140 }
+// });
 
-// Відключення гравітації для рослин
-plants.children.iterate(function (child) {
-    child.setGravityY(-200);
-});
+// // Відключення гравітації для рослин
+// plants.children.iterate(function (child) {
+//     child.setGravityY(-200);
+// });
 
-// Оновлення розміщення рослин
-updatePlantPositions();
     }
         
     function update ()

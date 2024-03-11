@@ -46,6 +46,17 @@ function preload ()// тут ми завантажуємо потрібні ма
     function create ()
     {
 
+        plant = this.physics.add.staticGroup();
+
+        for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(200, 500)) {
+plant
+.create(x, 1080 - 35, 'plant')
+.setOrigin(0, 1)
+.setScale(Phaser.Math.FloatBetween(0.5, 2))
+.setDepth(Phaser.Math.Between(1, 10));
+
+
+        }
         
         var score = 0;
 var scoreText;
@@ -63,17 +74,6 @@ function collectStar (player, star)
     
         platforms = this.physics.add.staticGroup();
     
-         //platforms.create(400, 568, 'ground').setScale(2).refreshBody();    //це не нада взагалі
-        // platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
-        // platforms.create(1750, 400, 'ground');
-         //platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
-        // platforms.create(1750, 200, 'ground').setScale(0.2).refreshBody();
-        // platforms.create(960, 1070, 'ground').setScale(5).refreshBody();
-    
-        // platforms.create(400, 380, 'ground');
-        // platforms.create(130, 150, 'ground');
-        // platforms.create(600, 350, 'ground'); 
-
 for (var x = 0; x < worldWidth; x = x + 400) {
     console.log(x)
     platforms.create(x, 1040, 'ground').setOrigin(0, 0).refreshBody().setScale(1);  //тут ми додаємо платформи які спауняться випадковим образом
@@ -109,11 +109,12 @@ this.anims.create({
     repeat: -1
 });
 player.body.setGravityY(50)   //задаємо персонажу гравітацію
+
 this.physics.add.collider(player, platforms);  //створюємо йому колізію
 
 stars = this.physics.add.group({   //додаємо зірочки
     key: 'soul',
-    repeat: 15,
+    repeat: 100,
     setXY: { x: 0, y: 0, stepX: 120 }
 });
 
@@ -129,33 +130,11 @@ function collectStar (player, star)
 {
     star.disableBody(true, true);
 }
-   // Створення групи рослин
-   plants = this.physics.add.group({
-     key: 'plant',
-     repeat: 5,
-     setXY: { x: 12, y: 0, stepX: 140 }
- });
-
-// // Відключення гравітації для рослин
-// plants.children.iterate(function (child) {
-//     child.setGravityY(-200);
-// });
 
     }
         
     function update ()
 {
-   
-    // function updatePlantPositions() {
-    //     plants.children.iterate(function (child));
-    //     {
-    //         // Перевірка колізій рослини з платформами
-    //         var overlaps = false;
-    //         platforms.children.iterate(function (platform) {
-    //             if (Phaser.Geom.Intersects.RectangleToRectangle(child.getBounds(), platform.getBounds())) {
-    //                 overlaps = true;
-    //             }
-    //         });
 
 
     this.cameras.main.setBounds(0, 0, worldWidth, window.innerHeight);  //робимо камеру щоб вона стежила за гравцем

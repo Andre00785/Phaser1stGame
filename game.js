@@ -50,10 +50,12 @@ function preload ()// тут ми завантажуємо потрібні ма
 
         for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(200, 500)) {
 plant
-.create(x, 1080 - 35, 'plant')
+.create(x, 1080 - 120, 'plant')
 .setOrigin(0, 1)
 .setScale(Phaser.Math.FloatBetween(0.5, 2))
-.setDepth(Phaser.Math.Between(1, 10));
+.setDepth(Phaser.Math.Between(-10, 10));
+
+
 
 
         }
@@ -74,15 +76,23 @@ function collectStar (player, star)
     
         platforms = this.physics.add.staticGroup();
     
-for (var x = 0; x < worldWidth; x = x + 400) {
+for (var x = 0; x < worldWidth; x = x + 128) {
     console.log(x)
-    platforms.create(x, 1040, 'ground').setOrigin(0, 0).refreshBody().setScale(1);  //тут ми додаємо платформи які спауняться випадковим образом
+    platforms.create(x, 1080 - 128, 'ground')
+    .setOrigin(0, 0)
+    .refreshBody()
+    .setScale(1);  //тут ми додаємо платформи які спауняться випадковим образом
+}
+
+for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(400, 500)) {
+var y = Phaser.Math.FloatBetween(100, 1000)
+platforms.create(x, y, 'ground');
 }
 
         player = this.physics.add.sprite(100, 450, 'dude');  //додаємо персонажа і задаємо його розміри і ось 
          player.setScale(0.8)
          player.setBounce(0.1);
-         player.setCollideWorldBounds(true);
+         player.setCollideWorldBounds(false);
 
 
 

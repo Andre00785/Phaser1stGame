@@ -63,10 +63,10 @@ function collectStar (player, star)
     
         platforms = this.physics.add.staticGroup();
     
-        // platforms.create(400, 568, 'ground').setScale(2).refreshBody();    //це не нада взагалі
+         //platforms.create(400, 568, 'ground').setScale(2).refreshBody();    //це не нада взагалі
         // platforms.create(1750, 568, 'ground').setScale(2).refreshBody();
         // platforms.create(1750, 400, 'ground');
-        // platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
+         //platforms.create(1400, 250, 'ground').setScale(0.5).refreshBody();
         // platforms.create(1750, 200, 'ground').setScale(0.2).refreshBody();
         // platforms.create(960, 1070, 'ground').setScale(5).refreshBody();
     
@@ -129,12 +129,12 @@ function collectStar (player, star)
 {
     star.disableBody(true, true);
 }
-//   // Створення групи рослин
-//   plants = this.physics.add.group({
-//     key: 'plant',
-//     repeat: 5,
-//     setXY: { x: 12, y: 0, stepX: 140 }
-// });
+   // Створення групи рослин
+   plants = this.physics.add.group({
+     key: 'plant',
+     repeat: 5,
+     setXY: { x: 12, y: 0, stepX: 140 }
+ });
 
 // // Відключення гравітації для рослин
 // plants.children.iterate(function (child) {

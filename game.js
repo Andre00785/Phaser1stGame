@@ -20,8 +20,19 @@ var config = { // туто ми налаштовуємо сценку
 var game = new Phaser.Game(config);  //тут ми дещо теж додаємо :)
 var worldWidth = 9600
 var console = console
-var plants;
-var platform;
+var plants
+var platform
+var souls
+var bombs
+var life = 3
+var platform
+var cursors
+var score = 0
+var scoreText
+var lifeText
+var gameOver = false
+var playerSpeed = 1000
+
 
 
 
@@ -62,14 +73,7 @@ plant
         
         var score = 0;
 var scoreText;
-scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });  //це поки що не надо
-function collectStar (player, star)
-{
-    star.disableBody(true, true);
-
-    score += 10;
-    scoreText.setText('Score: ' + score);
-}
+scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#FFF' });  //це поки що не надо
 
         cursors = this.input.keyboard.createCursorKeys();
         this.add.image(960, 540, 'sky');   //тут ми можна сказати доаємо на сцену наш фон
@@ -122,27 +126,47 @@ player.body.setGravityY(50)   //задаємо персонажу гравіта
 
 this.physics.add.collider(player, platforms);  //створюємо йому колізію
 
-stars = this.physics.add.group({   //додаємо зірочки
+souls = this.physics.add.group({   //додаємо зірочки
     key: 'soul',
     repeat: 100,
     setXY: { x: 0, y: 0, stepX: 120 }
 });
 
-stars.children.iterate(function (child) {
+souls.children.iterate(function (child) {
 
     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
 });
 
-this.physics.add.collider(stars, platforms); // задаємо колізію
-this.physics.add.overlap(player, stars, collectStar, null, this);
-function collectStar (player, star)
-{
-    star.disableBody(true, true);
-}
+this.physics.add.collider(souls, platforms); // задаємо колізію
+this.physics.add.overlap(player, souls, collectStar, null, this);
+
+
 
     }
         
+function collectStar(player, soul) {
+soul.disableBody(true, true);
+score += 10;
+scoreText.setText('Score' + score);
+
+if (souls.countActive(true) === 0){
+souls.children.interate(function (child){
+
+child.enableBody(true, child.x, 0, true, true);
+
+});
+
+var x = (player.x < 800) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+
+var bomb = bombs.create(x, 10, 'bomb');
+bomb.setBounce(1);
+bomb.setCollideWorldBounds(true);
+bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+}
+}
+
+
     function update ()
 {
 

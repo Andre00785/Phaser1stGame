@@ -39,6 +39,9 @@ var playerSpeed = 1000
 function preload()// тут ми завантажуємо потрібні матеріали для гри
 {
     this.load.image('sky', 'assets/sky.png');
+    this.load.image('platformFinish', 'assets/platformFinish.png');
+    this.load.image('platformStart', 'assets/platformStart.png');
+    this.load.image('platformOne', 'assets/platformOne.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('plant', 'assets/plant.png');
     this.load.image('soul', 'assets/soul.png');
@@ -80,18 +83,14 @@ function create() {
     platforms = this.physics.add.staticGroup();
 
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) //повітряна земля
-    { var y = Phaser.Math.FloatBetween(700, 93 * 10)
-        .platforms.create(x, y, 'platformStart'); 
+    { var y = Phaser.Math.FloatBetween(700, 93 * 10);
+        platforms.create(x, y, 'platformStart'); 
         var i; 
         for (i = 1; 
             i < Phaser.Math.Between(0, 5); i++) 
             { platforms.create(x + 100 * i, y, 'platformOne');
          } platforms.create(x + 100 * i, y, 'platformFinish'); }
 
-    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(400, 500)) {
-        var y = Phaser.Math.FloatBetween(100, 1000)
-        platforms.create(x, y, 'ground');
-    }
 
     player = this.physics.add.sprite(100, 450, 'dude');  //додаємо персонажа і задаємо його розміри і ось 
     player.setScale(0.8)

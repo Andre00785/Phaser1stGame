@@ -84,12 +84,22 @@ function create() {
 
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) //повітряна земля
     { var y = Phaser.Math.FloatBetween(700, 93 * 10);
-        platforms.create(x, y, 'platformStart'); 
         var i; 
         for (i = 1; 
             i < Phaser.Math.Between(0, 5); i++) 
-            { platforms.create(x + 100 * i, y, 'platformOne');
-         } platforms.create(x + 100 * i, y, 'platformFinish'); }
+            { platforms.create(x + 50 * i, y, 'platformOne');
+         } platforms.create(x + 350 * i, y, 'platformFinish');
+         platforms.create(x, y, 'platformStart'); }
+
+
+
+         for (var x = 0; x < worldWidth; x = x + 128) {  //тут ми додаємо платформи які спауняться випадковим образом
+            console.log(x)
+            platforms.create(x, 1080 - 128, 'ground')
+                .setOrigin(0, 0)
+                .refreshBody()
+                .setScale(1);  
+        }
 
 
     player = this.physics.add.sprite(100, 450, 'dude');  //додаємо персонажа і задаємо його розміри і ось 
@@ -139,6 +149,10 @@ function create() {
 
     this.physics.add.collider(souls, platforms); // задаємо колізію
     this.physics.add.overlap(player, souls, collectStar, null, this);
+
+lifeText = this.add.text(1500, 100, showLife(), { frontSize: '40px', fill: '#FFF'})
+.setOrigin(0, 0)
+.setScrollFactor(0)
 
     scoreText = this.add.text(50, 50, 'Score: 0', { fontSize: '20px', fill: '#FFF' })
         .setOrigin(0, 0)
@@ -206,4 +220,13 @@ function update() {
         player.setVelocityY(-330);
     }
 
+}
+
+function showLife() {
+    var lifeLine = 'Життя: '
+
+    for (var i = 0; i < life; i++) {
+        lifeLine += '😈'
+    }
+    return lifeLine
 }

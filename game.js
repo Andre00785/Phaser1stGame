@@ -79,13 +79,14 @@ function create() {
 
     platforms = this.physics.add.staticGroup();
 
-    for (var x = 0; x < worldWidth; x = x + 128) {
-        console.log(x)
-        platforms.create(x, 1080 - 128, 'ground')
-            .setOrigin(0, 0)
-            .refreshBody()
-            .setScale(1);  //тут ми додаємо платформи які спауняться випадковим образом
-    }
+    for (var x = 0; x < worldWidth; x = x + Phaser.Math.Between(600, 700)) //повітряна земля
+    { var y = Phaser.Math.FloatBetween(700, 93 * 10)
+        .platforms.create(x, y, 'platformStart'); 
+        var i; 
+        for (i = 1; 
+            i < Phaser.Math.Between(0, 5); i++) 
+            { platforms.create(x + 100 * i, y, 'platformOne');
+         } platforms.create(x + 100 * i, y, 'platformFinish'); }
 
     for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(400, 500)) {
         var y = Phaser.Math.FloatBetween(100, 1000)
@@ -140,16 +141,12 @@ function create() {
     this.physics.add.collider(souls, platforms); // задаємо колізію
     this.physics.add.overlap(player, souls, collectStar, null, this);
 
-    scoreText = this.add.text(100, 100, 'Score: 0', { fontSize: '20px', fill: '#FFF' })
+    scoreText = this.add.text(50, 50, 'Score: 0', { fontSize: '20px', fill: '#FFF' })
         .setOrigin(0, 0)
         .setScrollFactor(0)
 
-    // lifeText = this.add.text(1500, 100, showLife(), { fontSize: '40px', fill: '#FFF' })
-    //     .setOrigin(0, 0)
-    //     .setScrollFactor(0)
 
-
-    var resetButton = this.add.text(400, 450, 'reset', { fontSize: '40px', fill: '#ccc' })
+    var resetButton = this.add.text(200, 40, 'reset', { fontSize: '40px', fill: '#ccc' })
         .setInteractive()
         .setScrollFactor(0);
 

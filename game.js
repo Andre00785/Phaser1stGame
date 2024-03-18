@@ -88,8 +88,9 @@ function create() {
         for (i = 1; 
             i < Phaser.Math.Between(0, 5); i++) 
             { platforms.create(x + 50 * i, y, 'platformOne');
-         } platforms.create(x + 350 * i, y, 'platformFinish');
-         platforms.create(x, y, 'platformStart'); }
+         } 
+         } //  platforms.create(x, y, 'platformStart');
+        //  platforms.create(x + 350 * i, y, 'platformFinish');
 
 
 
@@ -150,7 +151,7 @@ function create() {
     this.physics.add.collider(souls, platforms); // задаємо колізію
     this.physics.add.overlap(player, souls, collectStar, null, this);
 
-lifeText = this.add.text(1500, 100, showLife(), { frontSize: '40px', fill: '#FFF'})
+lifeText = this.add.text(1700, 40, showLife(), { frontSize: '40px', fill: '#FFF'})
 .setOrigin(0, 0)
 .setScrollFactor(0)
 

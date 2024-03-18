@@ -55,6 +55,10 @@ function preload()// тут ми завантажуємо потрібні ма�
         'assets/dude5.png',
         { frameWidth: 129, frameHeight: 129 }
     );
+    this.load.spritesheet('Enemy',
+        'assets/enemy.png',
+        { frameWidth: 70, frameHeight: 80 }
+    );
 }
 
 function create() {
@@ -89,9 +93,7 @@ function create() {
             i < Phaser.Math.Between(0, 5); i++) 
             { platforms.create(x + 50 * i, y, 'platformOne');
          } 
-         } //  platforms.create(x, y, 'platformStart');
-        //  platforms.create(x + 350 * i, y, 'platformFinish');
-
+         } 
 
 
          for (var x = 0; x < worldWidth; x = x + 128) {  //тут ми додаємо платформи які спауняться випадковим образом
@@ -134,7 +136,7 @@ function create() {
     });
     player.body.setGravityY(50)   //задаємо персонажу гравітацію
 
-    this.physics.add.collider(player, platforms);  //створюємо йому колізію
+    this.physics.add.collider(player, platforms,);  //створюємо йому колізію
 
     souls = this.physics.add.group({   //додаємо зірочки
         key: 'soul',
@@ -148,7 +150,7 @@ function create() {
 
     });
 
-    this.physics.add.collider(souls, platforms); // задаємо колізію
+    this.physics.add.collider(souls, platforms,); // задаємо колізію
     this.physics.add.overlap(player, souls, collectStar, null, this);
 
 lifeText = this.add.text(1700, 40, showLife(), { frontSize: '40px', fill: '#FFF'})
@@ -169,12 +171,43 @@ lifeText = this.add.text(1700, 40, showLife(), { frontSize: '40px', fill: '#FFF'
         refreshBody()
     });
 
+    Enemy = this.physics.add.sprite(1000, 700, 'Enemy');  //додаємо ворога і задаємо його розміри і ось 
+    Enemy.setScale(1)
+    Enemy.setBounce(0.1);
+    Enemy.setCollideWorldBounds(false);
+
+    this.physics.add.collider(Enemy);
+
+    player.body.setGravityY(100)
+
+    this.anims.create({   //створюємо анімації для ворога
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('Enemy', { start: 1, end: 2 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'turn',
+        frames: this.anims.generateFrameNumbers("Enemy", {
+            frames: [0],
+        }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('Enemy', { start: 3, end: 4 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
 }
 
 function collectStar(player, soul) {
     soul.disableBody(true, true);
     score += 10;
-    scoreText.setText('Score' + score);
 
     if (souls.countActive(true) === 0) {
         souls.children.interate(function (child) {
@@ -189,6 +222,8 @@ function collectStar(player, soul) {
         bomb.setBounce(1);
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+
+        
     }
 }
 
@@ -227,7 +262,7 @@ function showLife() {
     var lifeLine = 'Життя: '
 
     for (var i = 0; i < life; i++) {
-        lifeLine += '😈'
+        lifeLine += '💜'
     }
     return lifeLine
 }

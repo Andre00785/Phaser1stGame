@@ -57,7 +57,7 @@ function preload()// тут ми завантажуємо потрібні ма�
     );
     this.load.spritesheet('Enemy',
         'assets/enemy.png',
-        { frameWidth: 70, frameHeight: 80 }
+        { frameWidth: 80, frameHeight: 80 }
     );
 }
 
@@ -136,7 +136,7 @@ function create() {
     });
     player.body.setGravityY(50)   //задаємо персонажу гравітацію
 
-    this.physics.add.collider(player, platforms,);  //створюємо йому колізію
+    this.physics.add.collider(player, platforms);  //створюємо йому колізію
 
     souls = this.physics.add.group({   //додаємо зірочки
         key: 'soul',
@@ -176,19 +176,19 @@ lifeText = this.add.text(1700, 40, showLife(), { frontSize: '40px', fill: '#FFF'
     Enemy.setBounce(0.1);
     Enemy.setCollideWorldBounds(false);
 
-    this.physics.add.collider(Enemy);
+    this.physics.add.collider(Enemy, platforms);
 
     player.body.setGravityY(100)
 
     this.anims.create({   //створюємо анімації для ворога
-        key: 'left',
+        key: 'left1',
         frames: this.anims.generateFrameNumbers('Enemy', { start: 1, end: 2 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'turn',
+        key: 'turn1',
         frames: this.anims.generateFrameNumbers("Enemy", {
             frames: [0],
         }),
@@ -197,7 +197,7 @@ lifeText = this.add.text(1700, 40, showLife(), { frontSize: '40px', fill: '#FFF'
     });
 
     this.anims.create({
-        key: 'right',
+        key: 'right1',
         frames: this.anims.generateFrameNumbers('Enemy', { start: 3, end: 4 }),
         frameRate: 10,
         repeat: -1
@@ -254,6 +254,27 @@ function update() {
 
     if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(-330);
+    }
+
+    if (cursors.left.isDown)  //робимо керуваня Enemy
+    {
+        Enemy.setVelocityX(-160);
+
+        Enemy.anims.play('left1', true);
+    }
+    else if (cursors.right.isDown) {
+        Enemy.setVelocityX(160);
+
+        Enemy.anims.play('right1', true);
+    }
+    else {
+        Enemy.setVelocityX(0);
+
+        Enemy.anims.play('turn1');
+    }
+
+    if (cursors.up.isDown && Enemy.body.touching.down) {
+        Enemy.setVelocityY(-330);
     }
 
 }

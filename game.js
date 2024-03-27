@@ -1,13 +1,12 @@
-var config = { // туто ми налаштовуємо сценку
+var config = { 
     type: Phaser.AUTO,
     width: 1920,
     height: 1080,
     scene: {
-        parent: game,
-        physics: {  //задаємо стиль фізики гри
+        physics: {  
             default: 'arcade',
             arcade: {
-                gravity: { y: 200 },  //додаємо гравітацію
+                gravity: { y: 200 }, 
                 debug: false
             }
         },
@@ -17,7 +16,7 @@ var config = { // туто ми налаштовуємо сценку
     }
 };
 
-var game = new Phaser.Game(config);  //тут ми дещо теж додаємо :)
+var game = new Phaser.Game(config);
 var worldWidth = 9600
 var console = console
 var plants
@@ -33,48 +32,38 @@ var lifeText
 var gameOver = false
 var playerSpeed = 1000
 
-
-
-
-function preload()// тут ми завантажуємо потрібні матеріали для гри
+function preload()
 {
-    this.load.image('sky', 'assets/sky.png');
-    this.load.image('platformFinish', 'assets/platformFinish.png');
-    this.load.image('platformStart', 'assets/platformStart.png');
-    this.load.image('platformOne', 'assets/platformOne.png');
-    this.load.image('ground', 'assets/platform.png');
-    this.load.image('plant', 'assets/plant.png');
-    this.load.image('soul', 'assets/soul.png');
-    this.load.image('bomb', 'assets/bomb.png');
-    this.load.image('stair', 'assets/stairs.png');
-    this.load.spritesheet('dude',
-        'assets/dude.png',
-        { frameWidth: 129, frameHeight: 129 }
+  this.load.image('Fon', 'assets/Fon1');
+  this.load.image('', '');
+  this.load.spriteshit('dude', 'assets/Player',
+    { frameWidth: 147, frameHeight: 294 }
     );
-    this.load.spritesheet('dude5',
-        'assets/dude5.png',
-        { frameWidth: 129, frameHeight: 129 }
-    );
+<<<<<<< Updated upstream
     this.load.spritesheet('Enemy',
         'assets/enemy.png',
         { frameWidth: 80, frameHeight: 80 }
     );
+=======
+  this.load.spriteshit('dude1', 'assets/Player1',
+  { frameWidth: 147, frameHeight: 294 }
+  );
+
+>>>>>>> Stashed changes
 }
 
-function create() {
+function create()
+{
 
-    plant = this.physics.add.staticGroup();
-
-    for (var x = 0; x < worldWidth; x = x + Phaser.Math.FloatBetween(200, 500)) {
-        plant
-            .create(x, 1080 - 120, 'plant')
-            .setOrigin(0, 1)
-            .setScale(Phaser.Math.FloatBetween(0.5, 2))
-            .setDepth(Phaser.Math.Between(-10, 10));
+  this.add.TileSprite(0, 0, worldWidth, 1080, "Fon0")
+  .setOrigin(0,0)
+  .setScale(1)
+  .setDepth(0);
 
 
 
 
+<<<<<<< Updated upstream
     }
 
     var score = 0;
@@ -107,14 +96,18 @@ function create() {
 
     player = this.physics.add.sprite(100, 450, 'dude');  //додаємо персонажа і задаємо його розміри і ось 
     player.setScale(0.8)
+=======
+  player = this.physics.add.sprite(100, 450, 'dude');
+    player.setScale(1)
+>>>>>>> Stashed changes
     player.setBounce(0.1);
     player.setCollideWorldBounds(false);
 
 
 
-    this.anims.create({   //створюємо анімації для персонажа
+    this.anims.create({ 
         key: 'left',
-        frames: this.anims.generateFrameNumbers('dude5', { start: 9, end: 1 }),
+        frames: this.anims.generateFrameNumbers('dude1', { start: 3, end: 0 }),
         frameRate: 10,
         repeat: -1
     });
@@ -122,7 +115,7 @@ function create() {
     this.anims.create({
         key: 'turn',
         frames: this.anims.generateFrameNumbers("dude", {
-            frames: [11, 10, 11, 12],
+            frames: [0],
         }),
         frameRate: 10,
         repeat: -1
@@ -130,10 +123,11 @@ function create() {
 
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 1, end: 10 }),
+        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 4 }),
         frameRate: 10,
         repeat: -1
     });
+<<<<<<< Updated upstream
     player.body.setGravityY(50)   //задаємо персонажу гравітацію
 
     this.physics.add.collider(player, platforms);  //створюємо йому колізію
@@ -287,3 +281,16 @@ function showLife() {
     }
     return lifeLine
 }
+=======
+    player.body.setGravityY(100) 
+
+    this.physics.add.collider(player, platforms);
+}
+
+function update()
+{
+
+
+  
+}
+>>>>>>> Stashed changes

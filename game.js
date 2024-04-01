@@ -14,7 +14,7 @@ var config = {
         create: create,
         update: update,
         shootBullet: shootBullet,
-        collectLives: collectLives
+        collectStar: collectStar
     }
 };
 
@@ -25,10 +25,14 @@ var platform
 var cursors
 var House
 var Angle
+var player
+var skeleton
+var skeletons
 
 function preload()
 {
   this.load.image('Fon', 'assets/Fon1.png');
+  this.load.image('star', 'assets/star.png');
   this.load.image('bullet', 'assets/Bullet.png');
   this.load.image('001', 'assets/гідрант.png');
   this.load.image('House', 'assets/house2.png');
@@ -47,6 +51,10 @@ function preload()
 
     this.load.spritesheet('Anon1', 'assets/Anon1.png',
     { frameWidth: 147, frameHeight: 294 }
+    );
+
+    this.load.spritesheet('skeleton', 'assets/enemy.png',
+    { frameWidth: 16, frameHeight: 16 }
     );
 
 }
@@ -176,7 +184,79 @@ function create()
             .setDepth(-3);
     }
 
-  }
+
+    stars = this.physics.add.group({   //додаємо зірочки
+        key: 'star',
+        repeat: 1000,
+        setXY: { x: 0, y: 0, stepX: 120 }
+    });
+
+    stars.children.iterate(function (child) {
+
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+    });
+
+    this.physics.add.collider(stars, platforms); // задаємо колізію
+    this.physics.add.overlap(player, stars, collectStar, null, this);
+
+
+    scoreText = this.add.text(40, 50, 'Score: 0', { fontSize: '40px', fill: '#FFF' })
+    .setOrigin(0, 0)
+    .setScrollFactor(0)
+    .setDepth(5)
+
+
+
+var resetButton = this.add.text(300, 50, 'reset', { fontSize: '40px', fill: '#ccc' })
+    .setInteractive()
+    .setScrollFactor(0)
+
+
+resetButton.on('pointerdown', function () {
+    console.log('restart')
+    refreshBody()
+});
+
+ // Створення групи скелетів і додавання фізики
+ skeletons = this.physics.add.group({
+    key: 'skeleton',
+    repeat: 100, // Кількість скелетів
+    setXY: { x: 100, y: 400, stepX: 200 } // Початкові координати і відступ між скелетами
+});
+
+// Додавання колізії між скелетами та платформами
+this.physics.add.collider(skeletons, platforms);
+
+// Додавання анімації для скелетів (якщо необхідно)
+
+// Налаштування руху скелетів за гравцем
+this.physics.add.overlap(player, skeletons, moveSkeletons, null, this);
+}
+
+
+  function collectStar(player, star) {
+    star.disableBody(true, true);
+}
+if (stars.countActive(true) === 0) // якщо немає більше зірок
+{
+    // перезавантажити усі зірки
+    stars.children.iterate(function (child) {
+        child.enableBody(true, child.x, 0, true, true);
+    });
+
+    // обрати x в протилежній частині екрану від гравця, випадково
+    var x = (player.x < 16) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+
+    // створити одну бомбу
+    var bomb = bombs.create(x, 800, 'bomb');
+    bomb.setBounce(0.999); // майже максимальна стрибучість
+    bomb.setCollideWorldBounds(true);
+    bomb.setVelocity(Phaser.Math.Between(-200, 200), 20); // з випадковою швидкістю
+
+    
+    
+}
 
    
 
@@ -223,6 +303,7 @@ function update()
 
        Anon1.anims.play('l', true);
    }
+   
 
 }
 
@@ -240,12 +321,51 @@ function shootBullet(pointer) {
     bullet.setVelocity(velocityX, velocityY);
 }
 
-function collectLives() {
+
+function moveSkeletons(player, skeleton) {
+    // Перевірка, чи скелет в межах 2000 пікселів
+    if (Math.abs(player.x - skeleton.x) <= 20000) {
+        // Рухаємо скелета в напрямку гравця
+        this.physics.moveToObject(skeleton, player, 100);
+    }
 
 
 
+createSkeletons.call(this);
 
 
+bullet = this.physics.add.group();
+this.physics.add.collider(bullet, skeletons, hitSkeleton, null, this);
+}
+
+function shootBullet(pointer) {
+    // Створюємо пулю з використанням створеного зображення
+    let bullet = this.physics.add.sprite(player.x, player.y, 'bullet');
+
+    // Визначаємо напрямок руху пулі до місця курсору миші
+    let angle = Phaser.Math.Angle.Between(player.x, player.y, pointer.x, pointer.y);
+    let velocityX = Math.cos(angle) * 5000; // швидкість по горизонталі
+    let velocityY = Math.sin(angle) * 5000; // швидкість по вертикалі
+
+    // Встановлюємо швидкість руху пулі
+    bullet.setVelocity(velocityX, velocityY);
+    skeletons.children.iterate((child)=>{
+        this.physics.add.collider(child, bullet, () => {
+            child.disableBody(true, true); // Знищуємо скелет
+            bullet.disableBody(true, true); // Знищуємо фаєрбол
+        }, null, true);
+    })
+
+}
 
 
+function restartGame() {
+    // Перезавантаження гри
+    window.location.reload();
+}
+
+
+function hitSkeleton(bullet, skeleton) {
+    skeleton.disableBody(true, true); // Знищуємо скелет
+    bullet.disableBody(true, true); // Знищуємо фаєрбол
 }
